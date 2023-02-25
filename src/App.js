@@ -2,28 +2,12 @@
  * We are going to be using the useEffect hook!
  */
 import React, { useEffect, useState } from 'react';
-import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
-import { Program, AnchorProvider, web3 } from '@project-serum/anchor';
-import { Buffer } from "buffer";
 import idl from './idl.json';
 import kp from './keypair.json'
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
 
-// SystemProgram is a reference to the Solana runtime!
-const { SystemProgram } = web3;
-// // Create a keypair for the account that will hold the GIF data.
-const arr = Object.values(kp._keypair.secretKey)
-const secret = new Uint8Array(arr)
-const baseAccount = web3.Keypair.fromSecretKey(secret)
-// // Get our program's id from the IDL file.
-const programID = new PublicKey(idl.metadata.address);
-// // Set our network to devnet.
-const network = clusterApiUrl('devnet');
-// // Controls how we want to acknowledge when a transaction is "done".
-const opts = {
-  preflightCommitment: "processed"
-}
+import  { checkIfWalletIsConnected, connectWallet, getProvider }  from './Services/solana-api'
 
 // Change this up to be your Twitter if you want.
 const TWITTER_HANDLE = 'darkjoehank';
@@ -39,43 +23,9 @@ const App = () => {
    * This function holds the logic for deciding if a Phantom Wallet is
    * connected or not
    */
-  const checkIfWalletIsConnected = async () => {
-    try {
-      const { solana } = window;
 
-      if (solana) {
-        if (solana.isPhantom) {
-          console.log('Phantom wallet found!');
-          const response = await solana.connect({ onlyIfTrusted: true });
-          console.log(
-            'Connected with Public Key:',
-            response.publicKey.toString()
-          );
-          /*
-           * Set the user's publicKey in state to be used later!
-           */
-          setWalletAddress(response.publicKey.toString());
-        }
-      } else {
-        alert('Solana object not found! Get a Phantom Wallet 👻');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
   
-  /*
-   * Let's connect the wallet
-   */
-  const connectWallet = async () => {
-    const { solana } = window;
-  
-    if (solana) {
-      const response = await solana.connect();
-      console.log('Connected with Public Key:', response.publicKey.toString());
-      setWalletAddress(response.publicKey.toString());
-    }
-  };
+ 
 
   const sendGif = async () => {
     if (inputValue.length === 0) {
@@ -128,13 +78,7 @@ const App = () => {
     }
   }
 
-  const getProvider = () => {
-    const connection = new Connection(network, opts.preflightCommitment);
-    const provider = new AnchorProvider(
-      connection, window.solana, opts.preflightCommitment,
-    );
-    return provider;
-  }
+ 
 
   /*
    * We want to render this UI when the user hasn't connected
@@ -241,10 +185,22 @@ const App = () => {
       {/* This was solely added for some styling fanciness */}
 			<div className={walletAddress ? 'authed-container' : 'container'}>
         <div className="header-container">
-          <p className="header">🖼 Meme Portal</p>
-          <p className="sub-text">
-            View your Memes NFTs Collection ✨
-          </p>
+
+        <div className="container">
+      <h1>¡Bienvenido a HAVEN!</h1>
+      <p>
+        HAVEN (Human Art Verification and Evaluation Network) es una plataforma
+        de suscripción que te brinda acceso a contenido exclusivo y descuentos
+        especiales en arte y cultura. Nuestro objetivo es conectar a los amantes
+        del arte con creadores y eventos culturales de todo el mundo.
+      </p>
+      <form>
+        <input type="text" placeholder="Nombre" />
+        <input type="email" placeholder="Correo electrónico" />
+        <button type="submit">Regístrate</button>
+      </form>
+    </div>
+
            {/* Add the condition to show this only if we don't have a wallet address and 
            Render your connect to wallet button right here */}
           {!walletAddress && renderNotConnectedContainer()}
