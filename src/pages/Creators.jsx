@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 
 
-function Dashboard() {
+function Creators() {
   
 
   return (
@@ -73,4 +73,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Creators;

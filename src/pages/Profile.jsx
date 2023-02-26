@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 
 
-function Dashboard() {
+function Profile() {
   
 
   return (
@@ -61,9 +61,9 @@ function Dashboard() {
           </div>
           <div>
             
-          Buscar creadores
+          PERFIL
 
-
+          
           </div>
         </div>
 
@@ -73,4 +73,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Profile;
