@@ -2,12 +2,13 @@
  * We are going to be using the useEffect hook!
  */
 import React, { useEffect, useState } from 'react';
+import { Program, AnchorProvider, web3, } from '@project-serum/anchor';
 import idl from './idl.json';
 import kp from './keypair.json'
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
 
-import  { checkIfWalletIsConnected, connectWallet, getProvider }  from './Services/solana-api'
+import  { checkIfWalletIsConnected, connectWallet, getProvider, programId, base_Account, systemProgram}  from './Services/solana-api'
 
 // Change this up to be your Twitter if you want.
 const TWITTER_HANDLE = 'darkjoehank';
@@ -35,12 +36,12 @@ const App = () => {
     setInputValue('');
     console.log('Gif link:', inputValue);
     try {
-      const provider = getProvider();
-      const program = new Program(idl, programID, provider);
+      const provider = getProvider;
+      const program = new Program(idl, programId, provider);
   
       await program.rpc.addGif(inputValue, {
         accounts: {
-          baseAccount: baseAccount.publicKey,
+          baseAccount: base_Account.publicKey,
           user: provider.wallet.publicKey,
         },
       });
@@ -60,17 +61,17 @@ const App = () => {
   const createGifAccount = async () => {
     try {
       const provider = getProvider();
-      const program = new Program(idl, programID, provider);
+      const program = new Program(idl, programId, provider);
       console.log("ping")
       await program.rpc.startStuffOff({
         accounts: {
-          baseAccount: baseAccount.publicKey,
+          baseAccount: base_Account.publicKey,
           user: provider.wallet.publicKey,
-          systemProgram: SystemProgram.programId,
+          systemProgram: systemProgram.programId,
         },
-        signers: [baseAccount]
+        signers: [base_Account]
       });
-      console.log("Created a new BaseAccount w/ address:", baseAccount.publicKey.toString())
+      console.log("Created a new BaseAccount w/ address:", base_Account.publicKey.toString())
       await getGifList();
   
     } catch(error) {
@@ -144,7 +145,7 @@ const App = () => {
    */
   useEffect(() => {
     const onLoad = async () => {
-      await checkIfWalletIsConnected();
+      await checkIfWalletIsConnected;
     };
     window.addEventListener('load', onLoad);
     return () => window.removeEventListener('load', onLoad);
@@ -152,7 +153,7 @@ const App = () => {
 
   useEffect(() => {
     const onLoad = async () => {
-      await checkIfWalletIsConnected();
+      await checkIfWalletIsConnected;
     };
     window.addEventListener('load', onLoad);
     return () => window.removeEventListener('load', onLoad);
@@ -161,8 +162,8 @@ const App = () => {
   const getGifList = async() => {
     try {
       const provider = getProvider();
-      const program = new Program(idl, programID, provider);
-      const account = await program.account.baseAccount.fetch(baseAccount.publicKey);
+      const program = new Program(idl, programId, provider);
+      const account = await program.account.base_Account.fetch(base_Account.publicKey);
       
       console.log("Got the account", account)
       setGifList(account.gifList)

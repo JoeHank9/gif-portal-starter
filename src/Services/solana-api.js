@@ -1,6 +1,5 @@
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
-import { Program, AnchorProvider, web3 } from '@project-serum/anchor';
-import { Buffer } from "buffer";
+import {  AnchorProvider, web3 } from '@project-serum/anchor';
 import idl from '../idl.json';
 import kp from '../keypair.json'
 
@@ -42,6 +41,18 @@ export const checkIfWalletIsConnected = async () => {
     } catch (error) {
         console.error(error);
     }
+};
+
+export const programId= async () => {
+    return programID;
+};
+
+export const base_Account = async () => {
+    return baseAccount;
+};
+
+export const systemProgram = async () => {
+    return SystemProgram;
 };
 
 /*
