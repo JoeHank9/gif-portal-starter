@@ -264,9 +264,15 @@ function Profile() {
                 value={youtube}
                 onChange={onYoutubeChange}
               />
-              <button type="submit" className="cta-button submit-gif-button">
-                Submit
-              </button>
+
+              <div className="flex flex-wrap -mx-3 mt-6">
+                  <div className="w-full px-3">
+                    <button
+                      type="submit" 
+                      className="btn text-white bg-purple-600 hover:bg-purple-700 w-full"
+                      >Enviar</button>
+                  </div>
+                </div>
               </div>
             </form>
             <div className="gif-grid">

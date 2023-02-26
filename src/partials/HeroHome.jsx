@@ -144,12 +144,13 @@ function HeroHome() {
    * their wallet to our app yet.
    */
   const renderNotConnectedContainer = () => (
-    <button
-      className="cta-button connect-wallet-button"
-      onClick={connectWallet}
-    >
-      Connect to Wallet
-    </button>
+    <div className="flex flex-wrap -mx-3 mt-6">
+      <div className="w-full px-3">
+        <button
+          className="btn text-white bg-purple-600 hover:bg-purple-700 w-full"
+          onClick={connectWallet}>Conectar mi wallet</button>
+      </div>
+    </div>
   );
 
   const renderConnectedContainer = () => {
@@ -180,7 +181,7 @@ function HeroHome() {
                 onChange={onInputChange}
               />
               <button type="submit" className="cta-button submit-gif-button">
-                Submit
+                Enviar
               </button>
             </form>
             <div className="gif-grid">
