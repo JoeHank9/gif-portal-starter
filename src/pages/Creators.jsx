@@ -136,10 +136,21 @@ function Creators() {
             </Sidebar>
           </div>
           <div>
+            <div>
+          <div className="max-w-3xl mx-auto text-center pb-16">
+              <h1 className="h1 mb-4" data-aos="fade-up">
+                Creadores
+              </h1>
+              <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
+                Encuentra y apoya a tu creador de contenido favorito!
+              </p>
+          </div>
+
          
 
           </div>
           <div className="gif-grid flex w-full flex-wrap ">
+            
 
               {/* We use index as the key instead, also, the src is now item.gifLink */}
               {profileList ? profileList.map((item, index) => (
@@ -202,6 +213,7 @@ function Creators() {
                   </div>
                 </div>
              )):<></>}
+             </div>
              </div>
         </div>
 
