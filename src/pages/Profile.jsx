@@ -146,7 +146,12 @@ function Profile() {
           user: provider.wallet.publicKey,
         },
       });
-      console.log("Profile successfully sent ");
+      alert('Perfil creado correctamente! visita credores para ver tu perfil👻');
+      setnickname('');
+      setProfilepicture('');
+      setTwitter('');
+      setInstagram('');
+      setYoutube('');
     } catch (error) {
       console.log("Error sending Profile:", error)
     }
@@ -225,6 +230,14 @@ function Profile() {
       instagram: instagram.to_string(),
       youtube: youtube.to_string()
             */}
+            <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
+              <h1 className="h1 mb-4" data-aos="fade-up">
+                Perfil
+              </h1>
+              <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
+                Rellena el formulario para completar tu perfil
+              </p>
+            </div>
             
           
           <form
@@ -234,39 +247,61 @@ function Profile() {
             }}
             >
               <div className='mx-auto flex flex-col'>
-              <input
-                type="text"
+              <div className="w-full px-3">
+                  <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">Usuario</label>
+                  <input type="text"
                 placeholder="nickname"
                 value={nickname}
-                onChange={onInputChange}
-              />
-              <input
-                type="text"
-                placeholder="profilepicture"
-                value={profilepicture}
-                onChange={onProfilepicture}
-              />
-              <input
-                type="text"
-                placeholder="twitter"
-                value={twitter}
-                onChange={onTwitterChange}
-              />
-              <input
-                type="text"
-                placeholder="instagram"
-                value={instagram}
-                onChange={onInstagramChange}
-              />
-              <input
-                type="text"
-                placeholder="youtube"
-                value={youtube}
-                onChange={onYoutubeChange}
-              />
-              <button type="submit" className="cta-button submit-gif-button">
-                Submit
-              </button>
+                onChange={onInputChange} className="form-input w-full text-gray-300"  required/>
+                </div>
+                <div className="w-full px-3">
+                  <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">Foto de perfil</label>
+                  <input type="text"
+                    placeholder="link al gif"
+                    value={profilepicture}
+                    onChange={onProfilepicture} className="form-input w-full text-gray-300" />
+                </div>
+                <div className="w-full px-3">
+                  <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">Twitter</label>
+                  <input
+                  type="text"
+                  placeholder="twitter"
+                  value={twitter}
+                  onChange={onTwitterChange}
+                   className="form-input w-full text-gray-300" />
+                </div>
+
+                <div className="w-full px-3">
+                  <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">Instagram</label>
+                  <input
+                  type="text"
+                  placeholder="instagram"
+                  value={instagram}
+                  onChange={onInstagramChange}
+                   className="form-input w-full text-gray-300" />
+                </div>
+
+
+                <div className="w-full px-3">
+                  <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">Youtube</label>
+                  <input
+                 type="text"
+                 placeholder="youtube"
+                 value={youtube}
+                 onChange={onYoutubeChange}
+                   className="form-input w-full text-gray-300" />
+                </div>
+
+
+
+              <div className="flex flex-wrap -mx-3 mt-6">
+                  <div className="w-full px-3">
+                    <button
+                      type="submit" 
+                      className="btn text-white bg-purple-600 hover:bg-purple-700 w-full"
+                      >Enviar</button>
+                  </div>
+                </div>
               </div>
             </form>
             <div className="gif-grid">
