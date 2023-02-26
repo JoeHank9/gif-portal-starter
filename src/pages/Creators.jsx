@@ -11,11 +11,87 @@ import Banner from '../partials/Banner';
 import Footer from '../partials/Footer';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Link } from "react-router-dom";
+import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
+import { Program, AnchorProvider, web3 } from '@project-serum/anchor';
+import idl from '../idl.json';
+import kp from '../keypair.json';
+import { Buffer } from "buffer";
+window.Buffer = Buffer;
 
 
+// SystemProgram is a reference to the Solana runtime!
+const { SystemProgram } = web3;
+// // Create a keypair for the account that will hold the GIF data.
+const arr = Object.values(kp._keypair.secretKey)
+const secret = new Uint8Array(arr)
+const baseAccount = web3.Keypair.fromSecretKey(secret)
+// // Get our program's id from the IDL file.
+const programID = new PublicKey(idl.metadata.address);
+// // Set our network to devnet.
+const network = clusterApiUrl('devnet');
+// // Controls how we want to acknowledge when a transaction is "done".
+const opts = {
+  preflightCommitment: "processed"
+}
 
 
 function Creators() {
+
+  const [walletAddress, setWalletAddress] = useState(null);
+  const [profileList, setProfileList] = useState(null);
+
+  const getProvider = () => {
+    const connection = new Connection(network, opts.preflightCommitment);
+    const provider = new AnchorProvider(
+      connection, window.solana, opts.preflightCommitment,
+    );
+    return provider;
+  }
+
+  const checkIfWalletIsConnected = async () => {
+    try {
+      const { solana } = window;
+
+      if (solana) {
+        if (solana.isPhantom) {
+          console.log('Phantom wallet found!');
+          const response = await solana.connect({ onlyIfTrusted: true });
+          console.log(
+            'Connected with Public Key:',
+            response.publicKey.toString()
+          );
+          /*
+           * Set the user's publicKey in state to be used later!
+           */
+          setWalletAddress(response.publicKey.toString());
+        }
+      } else {
+        alert('Solana object not found! Get a Phantom Wallet 👻');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getProfileList = async() => {
+    try {
+      const provider = getProvider();
+      const program = new Program(idl, programID, provider);
+      const account = await program.account.baseAccount.fetch(baseAccount.publicKey);
+      
+      console.log("Got the account", account)
+      setProfileList(account.profileList)
+  
+    } catch (error) {
+      console.log("Error in getProfileList: ", error)
+      setProfileList(null); 
+    }
+  }
+
+  useEffect(() => {
+    checkIfWalletIsConnected();
+    getProfileList();
+  }, [walletAddress]);
   
 
   return (
@@ -60,10 +136,23 @@ function Creators() {
             </Sidebar>
           </div>
           <div>
-            
-          Buscar creadores
+         
 
           </div>
+          <div className="gif-grid">
+
+              {/* We use index as the key instead, also, the src is now item.gifLink */}
+              {profileList ? profileList.map((item, index) => (
+                <div className="gif-item" key={index}>
+                  <img src={item.gifLink} />
+                  <h1>Creadores</h1>
+                  <p className="footer-text">{"Nickname: "+item.nickname.toString()}</p>
+                  <p className="footer-text">{"Address: "+item.userAddress.toString()}</p>
+                  <p className="footer-text">{"Twitter: "+item.twitter.toString()}</p>
+                  
+            </div>
+             )):<></>}
+             </div>
         </div>
 
       </main>

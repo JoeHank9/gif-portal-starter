@@ -1,143 +1,43 @@
 {
-  "version": "0.1.0",
-  "name": "myepicproject",
-  "instructions": [
-    {
-      "name": "startStuffOff",
-      "accounts": [
-        {
-          "name": "baseAccount",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "addProfile",
-      "accounts": [
-        {
-          "name": "baseAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        }
-      ],
-      "args": [
-        {
-          "name": "nickname",
-          "type": "string"
-        },
-        {
-          "name": "pfpicture",
-          "type": "string"
-        },
-        {
-          "name": "twitter",
-          "type": "string"
-        },
-        {
-          "name": "instagram",
-          "type": "string"
-        },
-        {
-          "name": "youtube",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "addSubscription",
-      "accounts": [
-        {
-          "name": "baseAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        }
-      ],
-      "args": [
-        {
-          "name": "price",
-          "type": "string"
-        },
-        {
-          "name": "description",
-          "type": "string"
-        }
-      ]
-    }
-  ],
-  "accounts": [
-    {
-      "name": "BaseAccount",
-      "type": {
-        "kind": "struct",
-        "fields": [
+    "version": "0.1.0",
+    "name": "myepicproject",
+    "instructions": [
+      {
+        "name": "startStuffOff",
+        "accounts": [
           {
-            "name": "totalProfiles",
-            "type": "u64"
+            "name": "baseAccount",
+            "isMut": true,
+            "isSigner": true
           },
           {
-            "name": "totalSubs",
-            "type": "u8"
+            "name": "user",
+            "isMut": true,
+            "isSigner": true
           },
           {
-            "name": "profileList",
-            "type": {
-              "vec": {
-                "defined": "ProfileStruct"
-              }
-            }
-          },
-          {
-            "name": "mysubscriptionList",
-            "type": {
-              "vec": {
-                "defined": "MySubscriptionStruct"
-              }
-            }
-          },
-          {
-            "name": "subscriptionList",
-            "type": {
-              "vec": {
-                "defined": "SubscriptionStruct"
-              }
-            }
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
           }
-        ]
-      }
-    }
-  ],
-  "types": [
-    {
-      "name": "ProfileStruct",
-      "type": {
-        "kind": "struct",
-        "fields": [
+        ],
+        "args": []
+      },
+      {
+        "name": "addProfile",
+        "accounts": [
           {
-            "name": "userAddress",
-            "type": "publicKey"
+            "name": "baseAccount",
+            "isMut": true,
+            "isSigner": false
           },
+          {
+            "name": "user",
+            "isMut": true,
+            "isSigner": true
+          }
+        ],
+        "args": [
           {
             "name": "nickname",
             "type": "string"
@@ -160,57 +60,132 @@
           }
         ]
       }
-    },
-    {
-      "name": "SubscriptionStruct",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "userAddress",
-            "type": "publicKey"
-          },
-          {
-            "name": "id",
-            "type": "u8"
-          },
-          {
-            "name": "price",
-            "type": "u64"
-          },
-          {
-            "name": "description",
-            "type": "string"
-          }
-        ]
-      }
-    },
-    {
-      "name": "MySubscriptionStruct",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "userAddress",
-            "type": "publicKey"
-          },
-          {
-            "name": "totalSubscriptions",
-            "type": "u64"
-          },
-          {
-            "name": "subscriptions",
-            "type": {
-              "vec": {
-                "defined": "SubscriptionStruct"
+    ],
+    "accounts": [
+      {
+        "name": "BaseAccount",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "totalProfiles",
+              "type": "u64"
+            },
+            {
+              "name": "totalSubs",
+              "type": "u8"
+            },
+            {
+              "name": "profileList",
+              "type": {
+                "vec": {
+                  "defined": "ProfileStruct"
+                }
+              }
+            },
+            {
+              "name": "mysubscriptionList",
+              "type": {
+                "vec": {
+                  "defined": "MySubscriptionStruct"
+                }
+              }
+            },
+            {
+              "name": "subscriptionList",
+              "type": {
+                "vec": {
+                  "defined": "SubscriptionStruct"
+                }
               }
             }
-          }
-        ]
+          ]
+        }
       }
+    ],
+    "types": [
+      {
+        "name": "ProfileStruct",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "userAddress",
+              "type": "publicKey"
+            },
+            {
+              "name": "nickname",
+              "type": "string"
+            },
+            {
+              "name": "pfpicture",
+              "type": "string"
+            },
+            {
+              "name": "twitter",
+              "type": "string"
+            },
+            {
+              "name": "instagram",
+              "type": "string"
+            },
+            {
+              "name": "youtube",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      {
+        "name": "SubscriptionStruct",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "userAddress",
+              "type": "publicKey"
+            },
+            {
+              "name": "id",
+              "type": "u8"
+            },
+            {
+              "name": "price",
+              "type": "u64"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      {
+        "name": "MySubscriptionStruct",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "userAddress",
+              "type": "publicKey"
+            },
+            {
+              "name": "totalSubscriptions",
+              "type": "u64"
+            },
+            {
+              "name": "subscriptions",
+              "type": {
+                "vec": {
+                  "defined": "SubscriptionStruct"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "metadata": {
+      "address": "EmpmZH6hTPUmKF6TamBef2WU7PwzrCncZtBDS6omtrQN"
     }
-  ],
-  "metadata": {
-    "address": "2zJAMh5JQep9Tw6cayGk4pPnNjR3vm3Cg4orQs5inU3G"
   }
-}

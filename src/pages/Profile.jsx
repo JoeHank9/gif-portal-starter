@@ -16,6 +16,7 @@ import { Program, AnchorProvider, web3 } from '@project-serum/anchor';
 import idl from '../idl.json';
 import kp from '../keypair.json';
 import { Buffer } from "buffer";
+window.Buffer = Buffer;
 
 // SystemProgram is a reference to the Solana runtime!
 const { SystemProgram } = web3;
@@ -37,16 +38,18 @@ const opts = {
 
 function Profile() {
   
-  const [inputValue, setInputValue] = useState('');
+  const [nickname, setnickname] = useState('');
   const [profilepicture, setProfilepicture] = useState('');
   const [twitter, setTwitter] = useState('');
   const [instagram, setInstagram] = useState('');
   const [youtube, setYoutube] = useState('');
   const [walletAddress, setWalletAddress] = useState(null);
+  const [profileList, setProfileList] = useState(null);
+  const [totalProfiles, setTotalProfiles] = useState(null);
 
   const onInputChange = (event) => {
     const { value } = event.target;
-    setInputValue(value);
+    setnickname(value);
   };
 
   const onProfilepicture = (event) => {
@@ -122,44 +125,59 @@ function Profile() {
 
   const sendProfile = async () => {
 
-    await accountInitialization();
-    if (inputValue.length === 0) {
+    if (nickname.length === 0) {
       console.log("No name provided");
       return
     }
-    console.log('Gif link:', inputValue);
+    console.log('Nickname:', nickname);
     try {
       const provider = getProvider();
       const program = new Program(idl, programID, provider);
-      console.log('inputValue',inputValue.toString());
+      console.log('nickname',nickname.toString());
       console.log('profilepicture',profilepicture);
       console.log('twitter',twitter);
       console.log('instagram',instagram);
       console.log('youtube',youtube);
 
   
-      await program.rpc.addProfile(inputValue, profilepicture, twitter, instagram, youtube,{
+      await program.rpc.addProfile(nickname, profilepicture, twitter, instagram, youtube,{
         accounts: {
           baseAccount: baseAccount.publicKey,
           user: provider.wallet.publicKey,
         },
       });
       console.log("Profile successfully sent ");
-  
     } catch (error) {
-      console.log("Error sending GIF:", error)
+      console.log("Error sending Profile:", error)
     }
   };
 
+  const getTotalProfiles = async() => {
+    try {
+      const provider = getProvider();
+      const program = new Program(idl, programID, provider);
+      const account = await program.account.baseAccount.fetch(baseAccount.publicKey);
+      console.log("Got the total accounts", account.totalProfiles)
+      setTotalProfiles(account.totalProfiles)
+      if(account.totalProfiles == null){
+        await accountInitialization();
+      }
+    } catch (error) {
+      console.log("Error in getTotalProfiles: ", error)
+      setTotalProfiles(null);
+      await accountInitialization();
+
+    }
+  }
+
   useEffect(() => {
     checkIfWalletIsConnected();
+    getTotalProfiles();
   }, [walletAddress]);
   
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
-
-
       <main className="grow">
         {/*  Page illustration */}
         <div className="relative max-w-6xl mx-auto h-0 pointer-events-none" aria-hidden="true">
@@ -219,7 +237,7 @@ function Profile() {
               <input
                 type="text"
                 placeholder="nickname"
-                value={inputValue}
+                value={nickname}
                 onChange={onInputChange}
               />
               <input
@@ -251,7 +269,17 @@ function Profile() {
               </button>
               </div>
             </form>
+            <div className="gif-grid">
 
+              {/* We use index as the key instead, also, the src is now item.gifLink */}
+              {profileList ? profileList.map((item, index) => (
+                <div className="gif-item" key={index}>
+                  <img src={item.gifLink} />
+                  <p className="footer-text">{item.userAddress.toString()}</p>
+                  <p className="footer-text">{item.nickname.toString()}</p>
+            </div>
+             )):<></>}
+             </div>
           </div>
         </div>
 
