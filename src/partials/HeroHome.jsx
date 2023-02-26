@@ -236,7 +236,7 @@ function HeroHome() {
   useEffect(() => {
     if (walletAddress) {
       console.log('Fetching GIF list...');
-      window.location.href = "/dashboard";
+      window.location.href = "/creators";
       getGifList();
     }
   }, [walletAddress]);
