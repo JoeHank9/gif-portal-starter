@@ -4,10 +4,8 @@
 import React, { useEffect, useState } from 'react';
 import { Program, AnchorProvider, web3, } from '@project-serum/anchor';
 import idl from './idl.json';
-import kp from './keypair.json'
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
-
 import  { checkIfWalletIsConnected, connectWallet, getProvider, programId, base_Account, systemProgram}  from './Services/solana-api'
 
 // Change this up to be your Twitter if you want.
@@ -29,7 +27,9 @@ const App = () => {
  
 
   const sendGif = async () => {
+    console.log('12312321');
     if (inputValue.length === 0) {
+      console.log('inputValue.length === 0');
       console.log("No gif link given!")
       return
     }
@@ -60,7 +60,7 @@ const App = () => {
 
   const createGifAccount = async () => {
     try {
-      const provider = getProvider();
+      const provider = getProvider;
       const program = new Program(idl, programId, provider);
       console.log("ping")
       await program.rpc.startStuffOff({
@@ -79,6 +79,10 @@ const App = () => {
     }
   }
 
+  const connectWalletButton = async () => {
+    setWalletAddress(connectWallet);
+  }
+
  
 
   /*
@@ -88,7 +92,7 @@ const App = () => {
   const renderNotConnectedContainer = () => (
     <button
       className="cta-button connect-wallet-button"
-      onClick={connectWallet}
+      onClick={connectWalletButton()}
     >
       Connect to Wallet
     </button>
@@ -145,7 +149,7 @@ const App = () => {
    */
   useEffect(() => {
     const onLoad = async () => {
-      await checkIfWalletIsConnected;
+      await setWalletAddress(checkIfWalletIsConnected);
     };
     window.addEventListener('load', onLoad);
     return () => window.removeEventListener('load', onLoad);
@@ -153,17 +157,22 @@ const App = () => {
 
   useEffect(() => {
     const onLoad = async () => {
-      await checkIfWalletIsConnected;
+      await setWalletAddress(checkIfWalletIsConnected);
     };
     window.addEventListener('load', onLoad);
     return () => window.removeEventListener('load', onLoad);
   }, []);
 
   const getGifList = async() => {
+    console.log("Inside getGifList");
     try {
-      const provider = getProvider();
+      console.log("getProvider");
+      const provider = getProvider;
+      console.log("idl",idl);
       const program = new Program(idl, programId, provider);
-      const account = await program.account.base_Account.fetch(base_Account.publicKey);
+      console.log("base_Account.publicKey",base_Account.publicKey);
+      console.log("program.account.baseAccount.fetch(base_Account.publicKey);", program.account.baseAccount.fetch(base_Account.publicKey));
+      const account = await program.account.baseAccount.fetch(base_Account.publicKey);
       
       console.log("Got the account", account)
       setGifList(account.gifList)

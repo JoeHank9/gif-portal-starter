@@ -43,15 +43,18 @@ export const checkIfWalletIsConnected = async () => {
     }
 };
 
-export const programId= async () => {
+export const programId = async () => {
+    console.log('programID',programID);
     return programID;
 };
 
 export const base_Account = async () => {
+    console.log('baseAccount',baseAccount);
     return baseAccount;
 };
 
 export const systemProgram = async () => {
+    console.log('SystemProgram',SystemProgram);
     return SystemProgram;
 };
 
@@ -73,5 +76,6 @@ export const getProvider = () => {
     const provider = new AnchorProvider(
       connection, window.solana, opts.preflightCommitment,
     );
+    console.log('provider',provider);
     return provider;
 };
