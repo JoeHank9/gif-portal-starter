@@ -14,7 +14,8 @@ import { Link } from "react-router-dom";
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import { Program, AnchorProvider, web3 } from '@project-serum/anchor';
 import idl from '../idl.json';
-import kp from '../keypair.json'
+import kp from '../keypair.json';
+import { Buffer } from "buffer";
 
 // SystemProgram is a reference to the Solana runtime!
 const { SystemProgram } = web3;
@@ -41,6 +42,7 @@ function Profile() {
   const [twitter, setTwitter] = useState('');
   const [instagram, setInstagram] = useState('');
   const [youtube, setYoutube] = useState('');
+  const [walletAddress, setWalletAddress] = useState(null);
 
   const onInputChange = (event) => {
     const { value } = event.target;
@@ -62,6 +64,31 @@ function Profile() {
   const onYoutubeChange = (event) => {
     const { value } = event.target;
     setYoutube(value);
+  };
+
+  const checkIfWalletIsConnected = async () => {
+    try {
+      const { solana } = window;
+
+      if (solana) {
+        if (solana.isPhantom) {
+          console.log('Phantom wallet found!');
+          const response = await solana.connect({ onlyIfTrusted: true });
+          console.log(
+            'Connected with Public Key:',
+            response.publicKey.toString()
+          );
+          /*
+           * Set the user's publicKey in state to be used later!
+           */
+          setWalletAddress(response.publicKey.toString());
+        }
+      } else {
+        alert('Solana object not found! Get a Phantom Wallet 👻');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getProvider = () => {
@@ -124,6 +151,9 @@ function Profile() {
     }
   };
 
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, [walletAddress]);
   
 
   return (
