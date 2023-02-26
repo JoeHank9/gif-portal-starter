@@ -24,7 +24,7 @@
         "args": []
       },
       {
-        "name": "addGif",
+        "name": "addProfile",
         "accounts": [
           {
             "name": "baseAccount",
@@ -39,7 +39,23 @@
         ],
         "args": [
           {
-            "name": "gifLink",
+            "name": "nickname",
+            "type": "string"
+          },
+          {
+            "name": "pfpicture",
+            "type": "string"
+          },
+          {
+            "name": "twitter",
+            "type": "string"
+          },
+          {
+            "name": "instagram",
+            "type": "string"
+          },
+          {
+            "name": "youtube",
             "type": "string"
           }
         ]
@@ -52,14 +68,34 @@
           "kind": "struct",
           "fields": [
             {
-              "name": "totalGifs",
+              "name": "totalProfiles",
               "type": "u64"
             },
             {
-              "name": "gifList",
+              "name": "totalSubs",
+              "type": "u8"
+            },
+            {
+              "name": "profileList",
               "type": {
                 "vec": {
-                  "defined": "ItemStruct"
+                  "defined": "ProfileStruct"
+                }
+              }
+            },
+            {
+              "name": "mysubscriptionList",
+              "type": {
+                "vec": {
+                  "defined": "MySubscriptionStruct"
+                }
+              }
+            },
+            {
+              "name": "subscriptionList",
+              "type": {
+                "vec": {
+                  "defined": "SubscriptionStruct"
                 }
               }
             }
@@ -69,23 +105,87 @@
     ],
     "types": [
       {
-        "name": "ItemStruct",
+        "name": "ProfileStruct",
         "type": {
           "kind": "struct",
           "fields": [
             {
-              "name": "gifLink",
+              "name": "userAddress",
+              "type": "publicKey"
+            },
+            {
+              "name": "nickname",
               "type": "string"
             },
             {
+              "name": "pfpicture",
+              "type": "string"
+            },
+            {
+              "name": "twitter",
+              "type": "string"
+            },
+            {
+              "name": "instagram",
+              "type": "string"
+            },
+            {
+              "name": "youtube",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      {
+        "name": "SubscriptionStruct",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
               "name": "userAddress",
               "type": "publicKey"
+            },
+            {
+              "name": "id",
+              "type": "u8"
+            },
+            {
+              "name": "price",
+              "type": "u64"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      {
+        "name": "MySubscriptionStruct",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "userAddress",
+              "type": "publicKey"
+            },
+            {
+              "name": "totalSubscriptions",
+              "type": "u64"
+            },
+            {
+              "name": "subscriptions",
+              "type": {
+                "vec": {
+                  "defined": "SubscriptionStruct"
+                }
+              }
             }
           ]
         }
       }
     ],
     "metadata": {
-      "address": "2zJAMh5JQep9Tw6cayGk4pPnNjR3vm3Cg4orQs5inU3G"
+      "address": "EmpmZH6hTPUmKF6TamBef2WU7PwzrCncZtBDS6omtrQN"
     }
-}
+  }
