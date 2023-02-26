@@ -1,18 +1,16 @@
-# Solana GIF Portal Project
+# HAVEN - Human Art Verification and Evaluation Network
+
+### **What is the HAVEN?**
+HAVEN es una plataforma de suscripción que te brinda acceso a contenido exclusivo de creadores y artistas. Teniendo como objetivo educar a los consumidores y creadores de arte sobre la importancia de la autenticidad y calidad en el arte, y cómo la tecnología puede ayudar en este proceso. Además, garantizar la autenticidad del arte creado por seres humanos y la importancia del proceso creativo. Nuestro objetivo es conectar a los amantes del arte con creadores para propiciar un sistema de verificación de autenticidad seguro y confiable para ayudar a prevenir la falsificación y el fraude en el mercado del arte y la creación de contenido.
 
 ### **Welcome 👋**
-To get started with this course, clone this repo and follow these commands:
+To get started with this app, clone this repo and follow these commands:
 
 Node version 16.13.0
 
 1. Run `npm install` at the root of your directory
 2. Run `npm run start` to start the project
-3. Start coding!
-
-### **What is the .vscode Folder?**
-If you use VSCode to build your app, we included a list of suggested extensions that will help you build this project! Once you open this project in VSCode, you will see a popup asking if you want to download the recommended extensions :).
+3. Start using it!
 
 
 
-### **Questions?**
-Have some questions make sure you head over to your [buildspace Dashboard](https://app.buildspace.so/courses/CObd6d35ce-3394-4bd8-977e-cbee82ae07a3) and link your Discord account so you can get access to helpful channels and your instructor!
