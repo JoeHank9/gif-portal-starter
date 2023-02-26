@@ -161,7 +161,7 @@ function Creators() {
                   </div>
                   <div class="mt-6 pt-3 flex flex-wrap mx-6 border-t justify-center">
                     <div class="text-xs mr-2 my-1 uppercase tracking-wider  px-2 text-indigo-600 border-indigo-600  hover:text-indigo-100 cursor-default">
-                    <a href={'www.twitter.com/'+item.twitter.toString()}>
+                    <a href={'https://www.twitter.com/'+item.twitter.toString()}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-7 w-7"
@@ -174,7 +174,7 @@ function Creators() {
                      </a>
                     </div>
                     <div class="text-xs mr-2 my-1 uppercase tracking-wider  px-2 text-indigo-600 border-indigo-600 hover:text-indigo-100 cursor-default">
-                      <a href={'www.instagram.com/'+item.instagram.toString()}>
+                      <a href={'https://www.instagram.com/'+item.instagram.toString()}>
                         <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-7 w-7"
@@ -187,7 +187,7 @@ function Creators() {
                       </a>
                     </div>
                     <div class="text-xs mr-2 my-1 uppercase tracking-wider  px-2 text-indigo-600 border-indigo-600  hover:text-indigo-100 cursor-default">
-                    <a href={'www.youtube.com/'+item.youtube.toString()}>
+                    <a href={'https://www.youtube.com/'+item.youtube.toString()}>
                        <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-7 w-7"
