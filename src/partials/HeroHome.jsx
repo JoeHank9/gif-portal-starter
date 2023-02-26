@@ -110,7 +110,7 @@ function HeroHome() {
     setInputValue(value);
   };
 
-  const createGifAccount = async () => {
+  const accountInitialization = async () => {
     try {
       const provider = getProvider();
       const program = new Program(idl, programID, provider);
@@ -157,7 +157,7 @@ function HeroHome() {
       if (gifList === null) {
         return (
           <div className="connected-container">
-            <button className="cta-button submit-gif-button" onClick={createGifAccount}>
+            <button className="cta-button submit-gif-button" onClick={accountInitialization}>
               Do One-Time Initialization For GIF Program Account
             </button>
           </div>

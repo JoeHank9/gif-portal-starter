@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 
 
 function Dashboard() {
-  
+  const [inputValue, setInputValue] = useState('');
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
@@ -61,8 +61,8 @@ function Dashboard() {
           </div>
           <div>
             
-          Buscar creadores
-
+          <div>
+          </div>
 
           </div>
         </div>

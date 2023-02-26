@@ -11,11 +11,119 @@ import Banner from '../partials/Banner';
 import Footer from '../partials/Footer';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Link } from "react-router-dom";
+import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
+import { Program, AnchorProvider, web3 } from '@project-serum/anchor';
+import idl from '../idl.json';
+import kp from '../keypair.json'
+
+// SystemProgram is a reference to the Solana runtime!
+const { SystemProgram } = web3;
+// // Create a keypair for the account that will hold the GIF data.
+const arr = Object.values(kp._keypair.secretKey)
+const secret = new Uint8Array(arr)
+const baseAccount = web3.Keypair.fromSecretKey(secret)
+// // Get our program's id from the IDL file.
+const programID = new PublicKey(idl.metadata.address);
+// // Set our network to devnet.
+const network = clusterApiUrl('devnet');
+// // Controls how we want to acknowledge when a transaction is "done".
+const opts = {
+  preflightCommitment: "processed"
+}
 
 
 
 
 function Profile() {
+  
+  const [inputValue, setInputValue] = useState('');
+  const [profilepicture, setProfilepicture] = useState('');
+  const [twitter, setTwitter] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [youtube, setYoutube] = useState('');
+
+  const onInputChange = (event) => {
+    const { value } = event.target;
+    setInputValue(value);
+  };
+
+  const onProfilepicture = (event) => {
+    const { value } = event.target;
+    setProfilepicture(value);
+  };
+  const onTwitterChange = (event) => {
+    const { value } = event.target;
+    setTwitter(value);
+  };
+  const onInstagramChange = (event) => {
+    const { value } = event.target;
+    setInstagram(value);
+  };
+  const onYoutubeChange = (event) => {
+    const { value } = event.target;
+    setYoutube(value);
+  };
+
+  const getProvider = () => {
+    const connection = new Connection(network, opts.preflightCommitment);
+    const provider = new AnchorProvider(
+      connection, window.solana, opts.preflightCommitment,
+    );
+    return provider;
+  }
+
+  const accountInitialization = async () => {
+    try {
+      const provider = getProvider();
+      const program = new Program(idl, programID, provider);
+      console.log("ping")
+      await program.rpc.startStuffOff({
+        accounts: {
+          baseAccount: baseAccount.publicKey,
+          user: provider.wallet.publicKey,
+          systemProgram: SystemProgram.programId,
+        },
+        signers: [baseAccount]
+      });
+      console.log("Created a new BaseAccount w/ address:", baseAccount.publicKey.toString())
+     // await getGifList();
+  
+    } catch(error) {
+      console.log("Error creating BaseAccount account:", error)
+    }
+  }
+
+  const sendProfile = async () => {
+
+    await accountInitialization();
+    if (inputValue.length === 0) {
+      console.log("No name provided");
+      return
+    }
+    console.log('Gif link:', inputValue);
+    try {
+      const provider = getProvider();
+      const program = new Program(idl, programID, provider);
+      console.log('inputValue',inputValue.toString());
+      console.log('profilepicture',profilepicture);
+      console.log('twitter',twitter);
+      console.log('instagram',instagram);
+      console.log('youtube',youtube);
+
+  
+      await program.rpc.addProfile(inputValue, profilepicture, twitter, instagram, youtube,{
+        accounts: {
+          baseAccount: baseAccount.publicKey,
+          user: provider.wallet.publicKey,
+        },
+      });
+      console.log("Profile successfully sent ");
+  
+    } catch (error) {
+      console.log("Error sending GIF:", error)
+    }
+  };
+
   
 
   return (
@@ -59,11 +167,61 @@ function Profile() {
               </Menu>
             </Sidebar>
           </div>
-          <div>
-            
-          PERFIL
+          <div className="mx-auto flex flex-col">
 
+            {/*
+      nickname: nickname.to_string(),
+      profilepicture: profilepicture.to_string(),
+      user_address: *user.to_account_info().key,
+      twitter: twitter.to_string(),
+      instagram: instagram.to_string(),
+      youtube: youtube.to_string()
+            */}
+            
           
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              sendProfile();
+            }}
+            >
+              <div className='mx-auto flex flex-col'>
+              <input
+                type="text"
+                placeholder="nickname"
+                value={inputValue}
+                onChange={onInputChange}
+              />
+              <input
+                type="text"
+                placeholder="profilepicture"
+                value={profilepicture}
+                onChange={onProfilepicture}
+              />
+              <input
+                type="text"
+                placeholder="twitter"
+                value={twitter}
+                onChange={onTwitterChange}
+              />
+              <input
+                type="text"
+                placeholder="instagram"
+                value={instagram}
+                onChange={onInstagramChange}
+              />
+              <input
+                type="text"
+                placeholder="youtube"
+                value={youtube}
+                onChange={onYoutubeChange}
+              />
+              <button type="submit" className="cta-button submit-gif-button">
+                Submit
+              </button>
+              </div>
+            </form>
+
           </div>
         </div>
 

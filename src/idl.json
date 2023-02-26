@@ -1,91 +1,216 @@
 {
-    "version": "0.1.0",
-    "name": "myepicproject",
-    "instructions": [
-      {
-        "name": "startStuffOff",
-        "accounts": [
+  "version": "0.1.0",
+  "name": "myepicproject",
+  "instructions": [
+    {
+      "name": "startStuffOff",
+      "accounts": [
+        {
+          "name": "baseAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "addProfile",
+      "accounts": [
+        {
+          "name": "baseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "nickname",
+          "type": "string"
+        },
+        {
+          "name": "pfpicture",
+          "type": "string"
+        },
+        {
+          "name": "twitter",
+          "type": "string"
+        },
+        {
+          "name": "instagram",
+          "type": "string"
+        },
+        {
+          "name": "youtube",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "addSubscription",
+      "accounts": [
+        {
+          "name": "baseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "price",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "BaseAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            "name": "baseAccount",
-            "isMut": true,
-            "isSigner": true
+            "name": "totalProfiles",
+            "type": "u64"
           },
           {
-            "name": "user",
-            "isMut": true,
-            "isSigner": true
+            "name": "totalSubs",
+            "type": "u8"
           },
           {
-            "name": "systemProgram",
-            "isMut": false,
-            "isSigner": false
+            "name": "profileList",
+            "type": {
+              "vec": {
+                "defined": "ProfileStruct"
+              }
+            }
+          },
+          {
+            "name": "mysubscriptionList",
+            "type": {
+              "vec": {
+                "defined": "MySubscriptionStruct"
+              }
+            }
+          },
+          {
+            "name": "subscriptionList",
+            "type": {
+              "vec": {
+                "defined": "SubscriptionStruct"
+              }
+            }
           }
-        ],
-        "args": []
-      },
-      {
-        "name": "addGif",
-        "accounts": [
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "ProfileStruct",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            "name": "baseAccount",
-            "isMut": true,
-            "isSigner": false
+            "name": "userAddress",
+            "type": "publicKey"
           },
           {
-            "name": "user",
-            "isMut": true,
-            "isSigner": true
-          }
-        ],
-        "args": [
+            "name": "nickname",
+            "type": "string"
+          },
           {
-            "name": "gifLink",
+            "name": "pfpicture",
+            "type": "string"
+          },
+          {
+            "name": "twitter",
+            "type": "string"
+          },
+          {
+            "name": "instagram",
+            "type": "string"
+          },
+          {
+            "name": "youtube",
             "type": "string"
           }
         ]
       }
-    ],
-    "accounts": [
-      {
-        "name": "BaseAccount",
-        "type": {
-          "kind": "struct",
-          "fields": [
-            {
-              "name": "totalGifs",
-              "type": "u64"
-            },
-            {
-              "name": "gifList",
-              "type": {
-                "vec": {
-                  "defined": "ItemStruct"
-                }
+    },
+    {
+      "name": "SubscriptionStruct",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "userAddress",
+            "type": "publicKey"
+          },
+          {
+            "name": "id",
+            "type": "u8"
+          },
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MySubscriptionStruct",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "userAddress",
+            "type": "publicKey"
+          },
+          {
+            "name": "totalSubscriptions",
+            "type": "u64"
+          },
+          {
+            "name": "subscriptions",
+            "type": {
+              "vec": {
+                "defined": "SubscriptionStruct"
               }
             }
-          ]
-        }
+          }
+        ]
       }
-    ],
-    "types": [
-      {
-        "name": "ItemStruct",
-        "type": {
-          "kind": "struct",
-          "fields": [
-            {
-              "name": "gifLink",
-              "type": "string"
-            },
-            {
-              "name": "userAddress",
-              "type": "publicKey"
-            }
-          ]
-        }
-      }
-    ],
-    "metadata": {
-      "address": "2zJAMh5JQep9Tw6cayGk4pPnNjR3vm3Cg4orQs5inU3G"
     }
+  ],
+  "metadata": {
+    "address": "2zJAMh5JQep9Tw6cayGk4pPnNjR3vm3Cg4orQs5inU3G"
+  }
 }

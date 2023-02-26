@@ -63,7 +63,6 @@ function Creators() {
             
           Buscar creadores
 
-
           </div>
         </div>
 
