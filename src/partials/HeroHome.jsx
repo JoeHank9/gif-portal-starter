@@ -275,10 +275,7 @@ function HeroHome() {
               HAVEN
             </h1>
             <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
-            HAVEN (Human Art Verification and Evaluation Network) es una plataforma
-        de suscripción que te brinda acceso a contenido exclusivo y descuentos
-        especiales en arte y cultura. Nuestro objetivo es conectar a los amantes
-        del arte con creadores y eventos culturales de todo el mundo.
+            HAVEN es una plataforma de suscripción que te brinda acceso a contenido exclusivo de creadores y artistas. Teniendo como objetivo garantizar la autenticidad del arte y contenido creado por seres humanos, resaltando la importancia del proceso creativo, y cómo la tecnología puede ayudar en este proceso. Además propicia un sistema de verificación confiable para prevenir la falsificación, conectando a los amantes del arte con sus creadores.
             </p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
