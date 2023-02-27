@@ -1,8 +1,8 @@
 # HAVEN - Human Art Verification and Evaluation Network
 
 
-### **What is the HAVEN?**
-HAVEN es una plataforma de suscripción que te brinda acceso a contenido exclusivo de creadores y artistas. Teniendo como objetivo garantizar la autenticidad del arte y contenido creado por seres humanos, resaltando la importancia del proceso creativo,  y cómo la tecnología puede ayudar en este proceso. Además propicia un sistema de verificación confiable para prevenir la falsificación, conectando a los amantes del arte con sus creadores.
+### **Qué es HAVEN?**
+Human Art Verification and Evaluation Network es una plataforma de subscripción que garantiza la autenticidad del arte y contenido creado por seres humanos, con acceso completo a creadores y un sistema de verificación confiable para prevenir la falsificación, permitiendo una conexión segura entre amantes del arte y creadores.
 
 ### Demo Live
 > https://main.dtg4laxjk9wss.amplifyapp.com/
@@ -15,7 +15,7 @@ Para iniciar esta plataforma, clona este repositorio y sigue los siguientes coma
 
 Node version 16.13.0
 
-1. Run `npm install` at the root of your directory
-2. Run `npm run start` to start the project
-3. Start using it!
+1. Ejecuta `npm install` en la ruta del directorio
+2. Ejecuta `npm run start` para inicar el proyecto
+3. Comienza a usarla!
 
